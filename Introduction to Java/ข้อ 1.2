@@ -1,0 +1,19 @@
+import javax.swing.JOptionPane;
+
+public class temperatureConversion {
+    public static void main(String[] args) {
+        // Show input dialog
+        String input = JOptionPane.showInputDialog(null, "Enter temperature(Fahrenheit):","Fahrenheit To Celsius",JOptionPane.QUESTION_MESSAGE);
+       
+        // Convert to double
+        double fahrenheit = Double.parseDouble(input);
+
+        double celsius = fahrenheitToCelsius(fahrenheit);
+
+        JOptionPane.showMessageDialog(null, "Celsius : " + celsius, "Result", JOptionPane.INFORMATION_MESSAGE);
+    }
+    public static double fahrenheitToCelsius(double f){
+        return (5.0/9.0)*(f-32);
+    }
+    
+}
