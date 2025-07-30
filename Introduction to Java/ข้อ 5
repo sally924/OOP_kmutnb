@@ -1,0 +1,10 @@
+public class Main
+{
+	public static void main(String[] args) {
+		char x = 'a'; //97 in ascii
+		char y = 't'; //116
+		System.out.println(++x); //98
+		System.out.println(y++); //117
+		System.out.println(x-y); // 98 -117 = 19
+	}
+}
