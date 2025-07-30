@@ -1,0 +1,34 @@
+import java.util.*;
+import java.text.DecimalFormat;
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner kb = new Scanner(System.in);
+	    
+	    System.out.print("Enter the monthly saving amount: ");
+	    
+		double balance = kb.nextDouble();
+		
+	    double rate_per_month = 0.00417;
+	    
+	    double total  = balance;
+	    double last_total = 0;
+	    
+	    for(int i = 0; i<6;i++){
+	        total = (balance + last_total) * (1 + rate_per_month);
+	        last_total = total;
+	    }
+
+		//double fv = balance * (Math.pow(1+rate_per_month,6)-1) / rate_per_month;
+	 //	DecimalFormat df = new DecimalFormat("###.##");
+	//	String formatnum = df.format(total);
+		
+		System.out.printf("After the sixth month, the account value is $%.2f",total);
+		
+		
+		
+		
+	}
+}
