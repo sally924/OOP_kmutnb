@@ -1,0 +1,19 @@
+import java.util.*;
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+		Scanner kb = new Scanner(System.in);
+		
+		System.out.print("Enter balance and interest rate (e.g., 3 for 3%): ");
+		double balance = kb.nextDouble(), rate = kb.nextDouble();
+		
+
+		System.out.printf("The interest is %.5f ",interest(balance,rate));
+	}
+	public static Double interest(double balance, double rate){
+	    return  balance * (rate / 1200.0);
+	}
+}
