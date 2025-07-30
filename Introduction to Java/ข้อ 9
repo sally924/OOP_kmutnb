@@ -1,0 +1,24 @@
+import java.util.*;
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+		Scanner kb = new Scanner(System.in);
+		int num = kb.nextInt();
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		while(num != 0){
+		   
+		   list.add(num); 
+		   num = kb.nextInt();
+		}
+		
+		int max  = Collections.max(list);
+		
+		int count = Collections.frequency(list,max);
+		
+		System.out.println(max + " " + count);
+	}
+}
