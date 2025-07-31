@@ -1,0 +1,59 @@
+import java.util.*;
+
+class MPM{
+    private ArrayList<Integer> data;
+    
+    MPM(ArrayList<Integer> list){
+        this.data = list;
+    }
+    
+    public boolean isPrime(int num){
+        if(num != 0 && num != 1){
+            for(int i = 2; i<num; i++){
+                if(num % i == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public int findMaxPrime(){
+        int countFrequency = 0;
+        int max = 0;
+        int res = -1;
+
+        
+        for(int num : data){
+            if(isPrime(num) && countFrequency >= max){
+                countFrequency = Collections.frequency(data,num);
+                max = countFrequency;
+                res = num;
+            }
+            
+        }
+        return res;
+    }
+}
+
+class Main{
+    public static void main(String args[]){
+        
+       ArrayList<Integer> list = new ArrayList<>();
+       Scanner kb = new Scanner(System.in);
+       
+       int num = kb.nextInt();
+       while(num != 0){
+           list.add(num);
+           num = kb.nextInt();
+       }
+       
+       MPM data1 = new MPM(list);
+       int max = data1.findMaxPrime();
+       //System.out.println(data1.isPrime(111));
+       System.out.println(max);
+       
+       
+       
+       
+    }
+}
