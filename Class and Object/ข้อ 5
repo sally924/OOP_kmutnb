@@ -1,0 +1,87 @@
+import java.util.*;
+
+class LinearEquation
+{
+    private double a,b,c,d,e,f;
+    LinearEquation(double a, double b, double c, double d, double e, double f){
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.d = d;
+        this.e = e;
+        this.f = f;
+    }
+    public double getA(){return a;}
+    public double getB(){return b;}
+    public double getC(){return c;}
+    public double getD(){return d;}
+    public double getE(){return e;}
+    public double getF(){return f;}
+    
+    public boolean isSolvable(){
+        if( (getA() * getD())  - (getB() * getC())  != 0){
+            return true;
+        }
+        return false;
+    }
+    public double getX(){
+        if(isSolvable()){
+            return ((getE() * getD()) - (getB() * getF()))/((getA() * getD()) - (getB() * getC()));
+        }
+        return -1;
+        
+
+    }
+    public double getY(){
+        if(isSolvable()){
+            return  ((getA() * getF()) - (getE() * getC()))/((getA() * getD()) - (getB() * getC()));
+        }
+        return -1;
+
+    }
+    public void print(){
+        
+        if(isSolvable()){
+	       System.out.println("x is " + getX() +" and y is "+ getY());
+	   }
+	   else{
+	       System.out.println("The equation has no solution");
+	   }
+    }
+    
+	
+}
+
+public class Test{
+    public static void main(String[] args) {
+       Scanner kb = new Scanner(System.in);
+      // double c; double d; double e; double f;
+       
+       
+       
+       double a = kb.nextDouble();
+       double b = kb.nextDouble();
+       double c = kb.nextDouble();
+       double d = kb.nextDouble();
+       double e = kb.nextDouble();
+       double f = kb.nextDouble();
+       
+	   LinearEquation L1 = new LinearEquation(a,b,c,d,e,f);
+	   
+	   double x = L1.getX();
+	   double y = L1.getY();
+	   
+	   L1.print();
+
+	  /*LinearEquation L2 = new LinearEquation(1.0,2.0,2.0,4.0,4.0,5.0);
+	   
+	   double x1 = L2.getX();
+	   double y1 = L2.getY();
+	   
+	   L2.print();*/
+
+	   
+	   
+	}
+    
+}
