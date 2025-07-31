@@ -1,0 +1,80 @@
+import java.util.*;
+
+// ComplexTest.java
+class Complex {
+    
+ private double r, i;
+ 
+ Complex(double r, double i) {
+   this.r = r; this.i = i;
+ }
+ 
+ Complex(Complex c) {
+   this(c.r, c.i);
+ }
+ 
+ public void add(Complex c) {
+  r += c.r;
+  i += c.i;
+ }
+ 
+ public void minus(Complex c){
+     r -= c.r;
+     i -= c.i;
+ }
+ 
+ public void multi(Complex c){
+     double A,B,C,D;
+     A = c.r;
+     B = c.i;
+     C = r;
+     D =i;
+     
+     r = (A*C - (B*D));
+     i = (A*D + (B*C));
+     
+     
+     
+ }
+ public void divide(Complex c){
+     double A,B,C,D;
+     A = r;
+     B = i;
+     C = c.r;
+     D = c.i;
+     
+     double denominator = Math.pow(C,2) + Math.pow(D,2);
+     r = ((A*C) + (B*D))/denominator;
+     i = ((B*C) - (A*D))/denominator;
+
+ }
+ 
+ 
+ public void print() {
+  System.out.println(r + "+ i" + i);
+ }
+ 
+}
+
+class ComplexTest {
+  public static void main(String args[]) {
+   Complex a = new Complex(1.0, 2.0);
+   Complex b = new Complex(3.0, 4.0);
+   Complex c = new Complex(a);
+   
+  /* c.add(b);
+   c.print();
+   
+   c.minus(b);
+   c.print();
+   
+   c.multi(b);
+   c.print();*/
+   
+   c.divide(b);
+   c.print();
+   
+   
+   }
+}
+
