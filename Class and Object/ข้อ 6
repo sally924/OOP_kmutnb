@@ -1,0 +1,55 @@
+import java.util.*;
+
+
+class Account{
+    private int id;
+    private double balance;
+    private double annuallnterestRate;
+    private Date dataCreated = new Date();
+    
+    Account(){
+        
+    }
+    Account(int id, double balance, double annuallnterestRate){
+        this.id = id;
+        this.balance = balance;
+        this.annuallnterestRate = annuallnterestRate;
+        
+    }
+    public double getMonthlyInterestRate(){
+        return (annuallnterestRate/12.0);
+    }
+    public double getMonthlyInterest(){
+        return (balance * getMonthlyInterestRate());
+    }
+    public void withdraw(double num){
+       if(num <= balance){
+           balance -= num;
+           System.out.println("Now total balance = " + balance);
+       }
+       else{
+            System.out.println("total balance not enough = ");
+       }
+        
+        
+        
+    }
+    public void deposit(double num){
+         balance += num;
+         System.out.println("Now total balance = " + balance);
+       
+    }
+    
+    
+}
+
+
+class Main{
+    public static void main(String args[]){
+        Account a1 = new Account(1122,20000,0.045);
+        a1.withdraw(2500);
+        a1.deposit(3000);
+        System.out.println("Monthly Interest : " + a1.getMonthlyInterest());
+        
+    }
+}
