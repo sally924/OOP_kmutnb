@@ -1,0 +1,90 @@
+import java.util.*;
+
+class square{
+    private double x,y,w,h;
+    
+    public square(double radius_x, double radius_y, double width, double height){
+        x = radius_x;
+        y = radius_y;
+        w = width;
+        h = height;
+    }
+    public square(){
+        
+    }
+    void isR2Inside(square r1, square r2){
+        
+        if(r1.x == r2.x  && r1.y == r2.y){
+            if(r1.w > r2.w && r1.h > r2.h){
+                System.out.println("r2 is inside r1");
+            }
+ 
+            else{
+                System.out.println("r2 is not inside r1");
+            }
+        }
+        else{
+            
+            double centerToEdgeWidth = r1.w / 2.0 ;
+            double centerToEgdeHeight = r1.h / 2.0;
+            
+            double centerTocenter = findDistance(r1.x,r1.y,r2.x,r2.y);
+            
+            if(centerTocenter < centerToEdgeWidth){
+                if(r2.h < r1.h){
+                    System.out.println("r2 is inside r1");
+                }
+                
+                
+                
+            }
+            else if(centerTocenter < centerToEgdeHeight){
+                if(r2.w < r1.w){
+                    System.out.println("r2 is inside r1");
+                }
+                
+                
+                
+            }
+            
+            else{
+                System.out.println("2.r2 is not inside r1");
+            }
+            
+            
+        }
+    }
+    double findDistance(double x1,double y1, double x2, double y2){
+        return (Math.sqrt(Math.pow((x1-x2),2) + Math.pow((y1-y2),2)));
+    }
+    
+    
+    
+    
+};
+
+class Main{
+    public static void main(String[] args){
+        Scanner kb = new Scanner(System.in);
+        
+        
+        double x1,y1,w1,h1,x2,y2,w2,h2;
+        
+        System.out.print("Enter r1's center x-, y-coordinates, width, and height: ");
+        x1 = kb.nextDouble();y1 = kb.nextDouble();w1 = kb.nextDouble();h1 = kb.nextDouble();
+        
+        System.out.print("\n");
+        
+        System.out.print("Enter r2's center x-, y-coordinates, width, and height: ");
+        x2 = kb.nextDouble();y2 = kb.nextDouble();w2 = kb.nextDouble();h2 = kb.nextDouble();
+        
+        square r1 = new square(x1,y1,w1,h1);
+        square r2 = new square(x2,y2,w2,h2);
+        
+        r1.isR2Inside(r1,r2);
+        
+        
+        
+    }
+    
+}
