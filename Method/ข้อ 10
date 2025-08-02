@@ -1,0 +1,69 @@
+import java.util.*;
+
+class aircraft{
+    public int x,y;
+    
+    aircraft(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+}
+
+
+class checkLight{
+    
+    checkLight(){
+        int count = 0;
+    }
+    public int totalPoints(int N, int M){
+        
+        Scanner kb = new Scanner(System.in);
+        aircraft[] arr = new aircraft[N];
+        
+        for(int i = 0; i<N; i++){
+            
+            int x = kb.nextInt();
+            int y = kb.nextInt();
+            
+            arr[i] = new aircraft(x,y);
+
+        }
+        int total = 0;
+        //showAir(arr);
+        for(int i = 0; i<M ;i++){
+            int point = kb.nextInt();
+            total += countPass(arr,point);
+        }
+        return total;
+        
+    }
+    public int countPass(aircraft[] arr, int point){
+        int count = 0;
+        for(int i = 0; i<arr.length;i++){
+            if(point > arr[i].x && point < arr[i].y){
+                count++;
+            }
+        }
+        return count;
+    }
+    public void showAir(aircraft[] arr){
+        for(int i = 0; i<arr.length;i++){
+            System.out.println(arr[i].x + "," + arr[i].y);
+        }
+        
+    }
+    
+}
+
+
+public class Main{
+    public static void main(String args[]){
+        Scanner kb = new Scanner(System.in);
+        int n = kb.nextInt();
+        int m = kb.nextInt();
+       // System.out.println("n = " + n + " m = " + m);
+        checkLight c1 = new checkLight();
+        System.out.println(c1.totalPoints(n,m));
+    }
+}
