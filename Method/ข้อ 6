@@ -1,0 +1,41 @@
+import java.util.*;
+
+
+class checkString{
+    
+    public static boolean isPalindrome(String s){
+       s = s.replaceAll("[^a-zA-Z]","").toLowerCase();
+       int left = 0;
+       int right = s.length() -1;
+       
+       while(left < right){
+           if (s.charAt(left) != s.charAt(right)){
+               return false;
+           }
+           left++;
+           right--;
+       }
+
+       return true;
+        
+        
+        
+        
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+		String text = "RADAR";
+		checkString s1 = new checkString();
+		//System.out.println(s1.isPalindrome(text));
+		if(s1.isPalindrome(text)){
+		    System.out.println(1);
+		}
+		else{
+		    System.out.println(0);
+		}
+		
+	}
+}
