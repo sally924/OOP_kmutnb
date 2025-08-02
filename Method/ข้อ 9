@@ -1,0 +1,100 @@
+import java.util.*;
+
+class Point{
+    public double x,y;
+    
+    Point(){
+        
+    }
+    
+    Point(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class ChecKTriangle{
+    private double cross;
+    private Point p0;
+    private Point p1;
+    private Point p2;
+    
+    ChecKTriangle(){
+        
+        
+    }
+    
+    ChecKTriangle(double x0, double y0, double x1, double y1, double x2, double y2){
+         p0 = new Point(x0,y0);
+         p1 = new Point(x1,y1);
+         p2 = new Point(x2,y2);
+        
+    }
+    
+    public double crossProduct(){
+         
+        cross = (p1.x-p0.x) * (p2.y - p0.y) - (p1.y - p0.y) * (p2.x - p0.x);
+        return cross;
+    }
+    
+    public boolean onTheSame(){
+        if(crossProduct() == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+        
+    }
+    
+        
+    public boolean leftOfTheLine(){
+        if(crossProduct() > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+        
+    }
+    public boolean rightOfTheLine(){
+        if(crossProduct() < 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+        
+    }
+    
+    
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+		Scanner kb = new Scanner(System.in);
+		
+		double x0 = kb.nextDouble(); double y0 = kb.nextDouble();
+		double x1 = kb.nextDouble(); double y1 = kb.nextDouble();
+		double x2 = kb.nextDouble(); double y2 = kb.nextDouble();
+		
+		ChecKTriangle t1 = new ChecKTriangle(x0,y0,x1,y1,x2,y2);
+		double cross_value = t1.crossProduct();
+		
+		int res = 2;
+		if(t1.onTheSame()){
+		    res = 0;
+		}
+		else if(t1.rightOfTheLine()){
+		    res = 1;
+		}
+		System.out.println(res);
+		//System.out.println(cross_value);
+
+	}
+}
