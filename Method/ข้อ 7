@@ -1,0 +1,44 @@
+import java.util.*;
+
+class MyTriangle{
+    
+    MyTriangle(){
+        
+    }
+    
+    public boolean isValid(double side1, double side2, double side3){
+        if(side1 + side2 > side3 && side1 + side3 > side2 && side2 + side3 > side1){
+            return true;
+        }
+        return false;
+    }
+    public double area(double side1, double side2, double side3){
+        if(isValid(side1,side2,side3)){
+           double s = (side1 + side2 + side3) / 2.0;
+           double area = Math.sqrt(s*(s-side1)*(s-side2)*(s-side3));
+           return area; 
+        }
+        return 0;
+       
+    }
+}
+
+public class Main{
+    public static void main(String args[]){
+        Scanner kb = new Scanner(System.in);
+        double x = kb.nextDouble();
+        double y = kb.nextDouble();
+        double z = kb.nextDouble();
+        
+        MyTriangle t1 = new MyTriangle();
+        
+        if(t1.isValid(x,y,z)){
+          System.out.printf("%.2f\n" , t1.area(x,y,z));
+        }
+        else{
+            System.out.println(0);
+        }
+
+        
+    }
+}
