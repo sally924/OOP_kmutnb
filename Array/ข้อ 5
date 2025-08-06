@@ -1,0 +1,102 @@
+import java.util.*;
+
+class MatrixMultiplication{
+    private int[][] M1;
+    private int[][] M2;
+    private int rows_M1,cols_M1;
+    private int rows_M2,cols_M2;
+    
+    MatrixMultiplication(int[][] A, int[][] B){
+        this.M1 = A;
+        this.M2 = B;
+        
+        rows_M1 = A.length;
+        cols_M1 = A[0].length;
+        
+        rows_M2 = B.length;
+        cols_M2 = B[0].length;
+        
+    }
+    
+    public int[][] resultOfMulti(){
+        int[][] res =  new int[rows_M1][cols_M2];
+        if(cols_M1 == rows_M2){
+            
+            int index = 0;
+            int ans = 0;
+            
+            for(int i = 0; i<rows_M1;i++){ 
+
+                  for(int j = 0; j<cols_M2;j++){
+                    for(int k = 0; k<cols_M1; k++){  
+                      ans += M1[i][k] * M2[k][j];
+                    }
+                    res[i][j] = ans;
+                    ans = 0;
+                  }
+
+            }
+
+        }
+        return res;
+    }
+    
+    
+    
+}
+public class Main
+{
+	public static void main(String[] args) {
+	   Scanner kb = new Scanner(System.in);
+	   
+	   System.out.print("input rows and columns of A : ");
+	   int rows_A = kb.nextInt();
+	   int cols_A = kb.nextInt();
+	   
+	   int[][] matrix_A = new int[rows_A][cols_A];
+	   
+	   for(int i = 0; i<rows_A;i++){
+	       for(int j = 0; j<cols_A;j++){
+	           matrix_A[i][j] = kb.nextInt();
+	       }
+	   }
+	   /*System.out.println("Matrix A");
+	   print(matrix_A,rows_A,cols_A);
+	   System.out.println("-------------");*/
+	   
+	   System.out.print("input rows and columns of B : ");
+	   int rows_B = kb.nextInt();
+	   int cols_B = kb.nextInt();
+
+	   
+	   
+	   int[][] matrix_B = new int[rows_B][cols_B];
+	   
+	   
+	    for(int i = 0; i<rows_B;i++){
+	       for(int j = 0; j<cols_B;j++){
+	           matrix_B[i][j] = kb.nextInt();
+	       }
+	   }
+	 /*  System.out.println("Matrix B");
+	   print(matrix_B,rows_B,cols_B);
+	   
+	   System.out.println("-------------");*/
+	   
+	   MatrixMultiplication p1 = new MatrixMultiplication(matrix_A, matrix_B);
+	   int[][] res = p1.resultOfMulti();
+	   
+	   System.out.println("result of A x B : ");
+	   print(res,res.length,res[0].length);
+	   
+	   
+	}
+	public static void print(int[][] M,int rows, int cols){
+	    for(int i = 0; i<rows;i++){
+	        for(int j = 0; j<cols;j++){
+	            System.out.print(M[i][j] + " ");
+	        }
+	        System.out.println();
+	    }
+	}
+}
