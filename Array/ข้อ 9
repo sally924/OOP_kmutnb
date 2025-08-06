@@ -1,0 +1,153 @@
+import java.util.*;
+
+
+public class Main{
+    
+    public static void main(String[] args){
+       Scanner kb = new Scanner(System.in);
+       
+       int rows,cols;
+       
+       rows = kb.nextInt();
+       cols = kb.nextInt();
+       
+       int[][] array = new int[rows][cols];
+       
+       for(int i = 0; i<rows; i++){
+           for(int j = 0; j<cols;j++){
+               array[i][j] = kb.nextInt();
+           }
+       }
+       /*System.out.println("----------------------");
+       for(int i = 0; i<rows; i++){
+           for(int j = 0; j<cols;j++){
+               System.out.print(array[i][j] + " ");
+           }
+           System.out.println();
+       }*/
+       
+       if(isConsecutiveFour(array)){
+           System.out.println(1); 
+       }else{
+           System.out.println(2);
+       }
+      
+       
+    }
+    
+    public static boolean isConsecutiveFour(int[][] values){
+        int rows = values.length;
+        int cols = values[0].length;
+        
+        //System.out.println("rows = " + rows);
+        //System.out.println("cols = " + cols);
+        
+        //check Horizontal
+        
+        boolean Horizontal = false;
+        for(int i = 0;i<rows;i++){
+            int c = 1;
+            for(int j = 0;j<cols-1;j++){
+              if(values[i][j] == values[i][j+1]){
+                  c++;
+              }
+              
+            }
+            //System.out.println("c = " + c);
+            if(c == 4){
+                Horizontal = true;
+                break;
+            }
+        }
+        
+        
+        //check Vertical
+         
+        boolean Vertical = false;
+         for(int j = 0;j<cols;j++){
+            int c = 1;
+            for(int i = 0;i<rows-1;i++){
+        
+              if(values[i][j] == values[i+1][j]){
+                    c++;
+                if(i > 0)
+                  if(values[i][j] != values[i-1][j]){
+                    c--;
+                  }
+              }
+              
+              
+            }
+          // System.out.println("c = " + c);
+            if(c == 4){
+                Vertical = true;
+                break;                                     
+            }
+        }
+        
+        boolean diagonally_left = false;
+             
+        for(int i = cols-1; i>=0;i--){
+        int copy_i = i;
+        int copy_j;
+
+        for (int j = 0; j<rows; j++) {
+           copy_j = j;
+           copy_i = i;
+
+         int count = 1;
+          while (copy_j + 1 < rows && copy_i - 1 >= 0) {
+              if (values[copy_j][copy_i] == values[copy_j + 1][copy_i - 1]) {
+                 count++;
+                 copy_j++;
+                 copy_i--;
+              }
+              else {
+                break;
+           }
+        }
+
+        //System.out.println("c = " + count);
+        if (count >= 4) {
+          diagonally_left = true;
+          break;
+        }
+     }
+    }
+
+        
+     boolean diagonally_right = false;
+     for(int i = 0; i<cols;i++){
+        int copy_i = i;
+        int copy_j;
+
+        for (int j = 0; j < rows; j++) {
+           copy_j = j;
+           copy_i = i;
+
+         int count = 1;
+          while (copy_j + 1 < rows && copy_i + 1 < cols) {
+              if (values[copy_j][copy_i] == values[copy_j + 1][copy_i + 1]) {
+                 count++;
+                 copy_j++;
+                 copy_i++;
+              }
+              else {
+                break;
+           }
+        }
+
+        //System.out.println("c = " + count);
+        if (count >= 4) {
+          diagonally_right = true;
+          break;
+        }
+     }
+    }
+
+    if(Vertical || Horizontal || diagonally_right || diagonally_left){return true;}
+        return false;
+    }        
+        
+
+}
