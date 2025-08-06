@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int H = sc.nextInt();
+        int W = sc.nextInt();
+        int[][] A = new int[H][W];
+
+        for (int i = 0; i < H; i++) {
+            for (int j = 0; j < W; j++) {
+                A[i][j] = sc.nextInt();
+            }
+        }
+
+        int maxSum = -1;
+        int bestRow = -1;
+        int bestCol = -1;
+
+        // เปลี่ยนลูปให้ไล่จากล่างขวา
+        for (int i = H - 1; i >= 0; i--) {
+            for (int j = W - 1; j >= 0; j--) {
+
+                // แนวนอน
+                if (j - 1 >= 0) {
+                    int a = A[i][j];
+                    int b = A[i][j - 1];
+                    if (Math.abs(a - b) <= 10 && a + b >= maxSum) {
+                        maxSum = a + b;
+                        bestRow = i;
+                        bestCol = j - 1; // มุมซ้าย
+                    }
+                }
+
+                // แนวตั้ง
+                if (i - 1 >= 0) {
+                    int a = A[i][j];
+                    int b = A[i - 1][j];
+                    if (Math.abs(a - b) <= 10 && a + b >= maxSum) {
+                        maxSum = a + b;
+                        bestRow = i - 1;
+                        bestCol = j;
+                    }
+                }
+            }
+        }
+
+        System.out.println((bestRow+1) + " " + (bestCol+1));
+    }
+}
