@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int[] numbers = new int[n];
+
+        for(int i = 0; i < n; i++) {
+            numbers[i] = sc.nextInt();
+        }
+
+        MinTwoSet solver = new MinTwoSet(numbers);
+        int result = solver.findMinDifference();
+        System.out.println(result);
+    }
+}
+
+class MinTwoSet {
+    private int[] numbers;
+
+    public MinTwoSet(int[] numbers) {
+        this.numbers = numbers;
+    }
+
+    public int findMinDifference() {
+        int total = 0;
+        for(int num : numbers) {
+            total += num;
+        }
+
+        int target = total / 2;
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;
+
+        for(int num : numbers) {
+            for(int j = target; j >= num; j--) {
+                dp[j] = dp[j] || dp[j - num];
+            }
+        }
+
+        for(int i = target; i >= 0; i--) {
+            if(dp[i]) {
+                int sum1 = i;
+                int sum2 = total - sum1;
+                return Math.abs(sum1 - sum2);
+            }
+        }
+
+        return total;
+    }
+}
