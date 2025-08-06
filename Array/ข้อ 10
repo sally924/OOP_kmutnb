@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class CarStunt {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int m = sc.nextInt(); // จำนวนเลน
+        int n = sc.nextInt() - 1; // เลนเริ่มต้น (แปลงเป็น index 0)
+        int t = sc.nextInt(); // เวลา
+
+        int[][] road = new int[t][m];
+
+        // อ่านข้อมูลสิ่งกีดขวาง
+        for (int i = 0; i < t; i++) {
+            for (int j = 0; j < m; j++) {
+                road[i][j] = sc.nextInt();
+            }
+        }
+
+        // จำลองการเคลื่อนที่
+        for (int time = 0; time < t; time++) {
+            // ลองไปทางซ้าย
+            if (n > 0 && road[time][n - 1] == 0) {
+                System.out.println(1); // ไปซ้าย
+                n -= 1;
+            }
+            // อยู่ในเลนเดิมได้มั้ย
+            else if (road[time][n] == 0) {
+                System.out.println(3); // อยู่เลนเดิม
+            }
+            // ไปทางขวาได้มั้ย
+            else if (n < m - 1 && road[time][n + 1] == 0) {
+                System.out.println(2); // ไปขวา
+                n += 1;
+            }
+        }
+
+        sc.close();
+    }
+}
