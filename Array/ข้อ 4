@@ -1,0 +1,100 @@
+import java.util.*;
+
+
+class AscendSortFreq{
+    private double[] A;
+    
+    AscendSortFreq(int n){
+        Scanner kb = new Scanner(System.in);
+        A = new double[n];
+        for(int i = 0; i<n; i++){
+            A[i] = kb.nextInt();
+        }
+    }
+    
+    AscendSortFreq(double[] array){
+        A = new double[array.length];
+        for(int i = 0; i<array.length; i++){
+            A[i] = array[i];
+        }
+    }
+    
+    public AscendSortFreq AscendSort(){
+        
+        for(int i = 0; i<A.length;i++){
+            for(int j = i; j<A.length;j++){
+                if(A[i] > A[j]){
+                  double temp = A[i];  
+                  A[i] = A[j];
+                  A[j] = temp;
+                }
+        
+            }
+        }
+        
+        return new AscendSortFreq(A);
+    }
+    
+    public double[] getArray(){
+        return A;
+    }
+
+    
+    public double[] SortCommuFreq(){
+        Map<Double, Integer> freqMap = new HashMap<>();
+        
+        AscendSortFreq A_sort = new AscendSortFreq(A);
+        A_sort = A_sort.AscendSort();
+        
+        for(double num : A_sort.getArray()){
+            System.out.print("num = " + num + " ");
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+        System.out.print("\n");
+        
+        double[] freqs = new double[A_sort.getArray().length];
+        for(int i = 0; i< freqs.length; i++){
+            freqs[i] = freqMap.get(A_sort.getArray()[i]);
+            System.out.print("val = " + freqs[i] + " ");
+        }
+        System.out.print("\n");
+       
+        return freqs;
+        
+        
+      
+    }
+
+    public void print(){
+        for(int i = 0; i<A.length;i++){
+            System.out.print(A[i] + " ");
+        }
+        System.out.print("\n");
+    }
+    
+    
+  
+}
+
+
+
+public class Main{
+    public static void main(String[] args){
+        
+        
+        Scanner kb = new Scanner(System.in);
+        int n = kb.nextInt();
+        
+        
+        AscendSortFreq myArray = new AscendSortFreq(n);
+       
+        
+        double[] freq = myArray.SortCommuFreq();
+        
+        
+        for(double num : freq){
+            System.out.print(num + " ");
+        }System.out.print("\n");
+
+    }
+}
