@@ -1,0 +1,100 @@
+import java.util.*;
+
+
+class Star{
+    
+    
+     Star(){
+    
+    }
+    public ArrayList<String> addStars(ArrayList<String> data){
+        ArrayList<String> myStr2 = new ArrayList<>();
+        
+    
+        for(String e : data){
+            myStr2.add(e);
+            myStr2.add("*");
+        } 
+        
+        int count = 0;
+        System.out.print("[");
+        for(String e : myStr2){
+          if(count < myStr2.size()-1){
+             System.out.print(e + ","); 
+              
+          }else{
+              System.out.print(e); 
+          }
+          count++;
+          
+        }
+        System.out.println("]");
+        
+        return myStr2;
+    
+    }
+    
+    public ArrayList<String> removeStars(ArrayList<String> data){
+        ArrayList<String> myStr2 = new ArrayList<>();
+        
+        for(String e : data){
+            if(e != "*"){
+                myStr2.add(e);
+            }
+        }
+        int count = 0;
+        System.out.print("[");
+        for(String e : myStr2){
+          if(count < myStr2.size()-1){
+             System.out.print(e + ","); 
+              
+          }else{
+              System.out.print(e); 
+          }
+          count++;
+          
+        }
+        System.out.println("]");
+        
+        return myStr2;
+        
+        
+    }
+    
+    
+    
+
+
+
+}
+public class Main {
+    public static void main(String[] args){
+      ArrayList<String> myStr = new ArrayList<>();
+     
+      Scanner kb = new Scanner(System.in);
+      
+      for(int i = 0;i<4;i++){
+        String w = kb.nextLine();
+        myStr.add(w);
+      }
+      
+      Star starProcessor = new Star();
+      
+    for(int i = 0; i<2;i++){
+      int num = kb.nextInt();
+      if(num == 1){
+          myStr = starProcessor.addStars(myStr);
+      }
+      else if(num == 2){
+          myStr = starProcessor.removeStars(myStr);
+      }
+    }
+
+        
+    }
+
+    
+   
+    
+    
+}
