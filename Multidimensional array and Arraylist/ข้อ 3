@@ -1,0 +1,57 @@
+import java.util.*;
+
+class SortMergeList{
+    
+    SortMergeList(){
+        
+    }
+    
+    public ArrayList<Integer> intersect(ArrayList<Integer> data1, ArrayList<Integer> data2){
+        ArrayList<Integer> afterIntersec = new ArrayList<>();
+        
+        for(int e1  : data1){
+            for(int e2 : data2){
+                if(e1 == e2){
+                    afterIntersec.add(e1);
+                }
+            }
+        }
+        for(int e : afterIntersec){
+            System.out.print(e + " ");
+        }
+        return afterIntersec;
+    }
+    
+    
+    
+}
+
+
+public class Main{
+    public static void main(String[] args){
+        ArrayList<Integer> data1 = new ArrayList<>();
+        ArrayList<Integer> data2 = new ArrayList<>();
+        
+        Scanner kb = new Scanner(System.in);
+        int num;
+        for(int k = 0; k<2;k++){
+          for(int i = 0 ;i<11; i++){
+            num = kb.nextInt();
+            if(k == 0){
+              data1.add(num);  
+            }
+            else{
+                data2.add(num);
+            }
+            
+        }
+
+      }
+      num = kb.nextInt();
+      
+      SortMergeList data3 = new SortMergeList();
+      data3.intersect(data1, data2);
+      
+        
+    }
+}
