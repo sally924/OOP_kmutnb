@@ -1,0 +1,76 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        double[][] data = new double[5][10];
+        Scanner kb = new Scanner(System.in);
+        
+        for(int i = 0;i<5;i++){
+            for(int j = 0;j<10;j++){
+                double num = kb.nextDouble();
+                data[i][j] = num;
+            }
+        }
+        double avg = findAvg(data);
+        int max = findMax(data);
+        int min = findMin(data);
+        System.out.println(avg);
+        System.out.println(max);
+        System.out.println(min);
+        delEven(data);
+    }
+    public static double findAvg(double[][] data){
+        int n = data.length;
+        double sum = 0;
+        double count = 0;
+        for(int i = 0; i<n;i++){
+            for(int j = 0; j<data[i].length;j++){
+                sum += data[i][j];
+                count++;
+            }
+        }
+        return sum/count;
+    }
+    public static int findMax(double[][] data){
+        int n = data.length;
+        double max = data[0][0];
+        for(int i = 0; i<n;i++){
+            for(int j = 0; j<data[i].length;j++){
+                if(data[i][j] > max){
+                    max = data[i][j];
+                }
+            }
+        }
+        return (int)max;
+    }
+    
+     public static int findMin(double[][] data){
+        int n = data.length;
+        int min = (int)data[0][0];
+        for(int i = 0; i<n;i++){
+            for(int j = 0; j<data[i].length;j++){
+                if(data[i][j] < min){
+                    min =(int) data[i][j];
+                }
+            }
+        }
+        return min;
+    }
+    public static void delEven(double[][] data){
+        int n = data.length;
+        List<Integer> Odd = new ArrayList<>();
+        for(int i = 0; i< n; i++){
+         for(int j = 0; j<data[i].length;j++){
+           if(data[i][j] % 2 != 0){
+               //System.out.print(data[i][j] + " ");
+               Odd.add((int)data[i][j]);
+           }
+         }
+        }
+         
+        for(int e : Odd){
+             System.out.print(e + " ");
+         }
+        }
+    
+}
