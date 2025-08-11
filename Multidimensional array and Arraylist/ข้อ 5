@@ -1,0 +1,75 @@
+import java.util.*;
+
+class Employee{
+    private String firstname, lastname, id;
+    private int year;
+    private double salary;
+    
+    public Employee(String firstname, String lastname, String id, double sal){
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.id = id;
+        salary  = sal;
+    }
+    public Employee(String firstname, String lastname, String id, double sal, int year){
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.id = id;
+        salary  = sal;
+        this.year = year;
+    }
+    
+    public double earning(){
+        return salary - (salary*0.05);
+    }
+    public double bonus(int year){
+        if(year > 5){
+            return salary*12.0;
+        }
+        else{
+            return salary*6.0;
+        }
+        
+    }
+    
+    public void printEmp(ArrayList a){
+        System.out.println(firstname + " " + lastname + " id : " +  id + " earning :" + earning() + " bonus : " + bonus(year));
+        
+        
+    }
+    
+    @Override
+    public String toString(){
+        return firstname + " " + lastname + " (id) : " +  id + " salary : " + salary + "\n";
+    }
+    
+    
+}
+
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        System.out.println("Hello wolrd");
+        
+        ArrayList<Employee> arrayEarn = new ArrayList<>();
+        
+        Employee emp1 = new Employee("somchai","rakthai","001",35000, 5);
+        Employee emp2 = new Employee("somjai", "raksanook","002",18000, 15);
+        Employee emp3 = new Employee("somsri", "raksabuy","003",280000, 10);
+        
+        arrayEarn.add(emp1);
+        arrayEarn.add(emp2);
+        arrayEarn.add(emp3);
+        
+       
+       
+       emp1.printEmp(arrayEarn);
+       emp2.printEmp(arrayEarn);
+       emp3.printEmp(arrayEarn);
+        
+    }
+}
+
+
+    
