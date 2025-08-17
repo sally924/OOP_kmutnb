@@ -1,73 +1,149 @@
-// Main class
+//Acount.java
+
 import java.util.*;
 
-public class Main
-{
-	public static void main(String[] args) {
-	    
-	    //6.1
-		Account client1 = new Account(1123,20000,3.75);
-		Scanner kb = new Scanner(System.in);
-		
-	    String name = kb.nextLine();
-		String surname = kb.nextLine();
-		client1.setName(name,surname);
-		
-		
-		int d = kb.nextInt();
-		kb.nextLine();
-		String m = kb.nextLine();
-		int y = kb.nextInt();
-		client1.setDate(new Date(d,m,y));
-		
-		Date now = new Date(7,"Aug",2025);
-		
-	
-	    client1.withdraw(2500);
-	    client1.deposit(3000);
-	    
-	    Account client2 = new Account(1100,0,3);
-	    
-	    client1.transferMoney(client2,5000);
-	   
-	    System.out.println(client1.getBalance());
-	    System.out.println(client1.getMonthlyInterest(now));
+class Account{
+    private int id,day,month,year;
+    private double balance;
+    private double annualInterestRate;
+    private Date dateCreated;
+    private Person objPerson;
 
-	    System.out.println("-------------------");
-	    
-	    
-	    //6.2
-	    
-	    FixAccount client3 = new FixAccount(1124,20000,7);
-	    Account client2 = new Account(1100,0,3);
-	    
-	    Scanner kb = new Scanner(System.in);
-	    
-        String name = kb.nextLine();
-		String surname = kb.nextLine();
-		client3.setName(name,surname);
-		
-		
-		int d2 = kb.nextInt();
-		kb.nextLine();
-		
-		String m2 = kb.nextLine();
-		int y2 = kb.nextInt();
-		
-		client3.setDate(new Date(d2,m2,y2));
-		Date now2 = new Date(17,"Aug",2025);
-		
-		client3.withdraw(now2,2500); 
-	    client3.deposit(3000);
-	    
-	    client3.transferMoney(client2,8000);
-	    System.out.println(client3.getBalance());
-	    System.out.println(client3.getMonthlyInterest(now2));
-		
-	    
+    public Account() {
+      
+    }
 
-		
-		
-		
-	}
+    public Account(int id, double startBalance) {
+        this.id = id;
+        this.balance = startBalance;
+     
+    }
+
+    public Account(int id, double startBalance, double rate) {
+        this.id = id;
+        this.balance = startBalance;
+        this.annualInterestRate = rate / 100.0;
+    }
+    
+    public void setName(String name, String surname){
+        objPerson = new Person();
+        objPerson.name = name;
+        objPerson.surname = surname;
+        
+    }
+    
+
+    public int getID() {
+        return id;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public double getAnnualInterestRate() {
+        return annualInterestRate;
+    }
+    public Date getDate() {
+        return dateCreated;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void setAnnualInterestRate(double rate) {
+        this.annualInterestRate = rate / 100.0;
+    }
+
+    public void setDate(Date date) {
+        this.dateCreated = date;
+    }
+
+    public double getMonthlyInterestRate() {
+        return annualInterestRate / 12.0;
+    }
+
+    public double getMonthlyInterest(Date other) {
+        double ratePerMonth = getMonthlyInterestRate();  
+        int n = (int) dateCreated.getTotalMonth(other);
+
+        double currentBalance = balance * Math.pow(1 + ratePerMonth, n);
+        double previousBalance = balance * Math.pow(1 + ratePerMonth, n - 1);
+
+    return currentBalance - previousBalance;
+    }
+
+    public void withdraw(double amount) {
+        if(amount > 0){
+            if (balance < amount) {
+               System.out.println("Insufficient balance");
+            } else {
+               balance -= amount;
+            }
+        }
+        else{
+            System.out.println("withdraw must be more than 0 bath");
+        }
+        
+    }
+    
+    public void withdraw(Date now, double amount) {
+        System.out.println("now  = " + now.getYear());
+        System.out.println("dc  = " + dateCreated.getYear());
+        if(now.getYear() > dateCreated.getYear()){
+            
+            
+          if(amount > 0){
+             if (balance < amount) {
+               System.out.println("Insufficient balance");
+             } else {
+               balance -= amount;
+             }
+          }
+         else{
+            System.out.println("withdraw must be more than 0 bath");
+          }
+
+        }
+        else{
+             System.out.println("Account must be more 1 year");
+        }
+        
+        
+        
+    }
+    
+    
+
+    public void deposit(double amount) {
+        if(amount > 0){
+           balance += amount; 
+        }
+        else{
+            System.out.println("deposit must be more than 0 bath");
+        }
+       
+    }
+
+    public void transferMoney(Account acc1, double amount) {
+      if (amount <= getBalance() && amount >= 0) {
+           setBalance(getBalance() - (amount)); 
+           acc1.setBalance(acc1.getBalance() + amount);
+           /*acc1.balance += amount;
+           this.balance -= amount;*/
+      } 
+      else {
+        System.out.println("Insufficient balance with fee");
+      } 
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Balance: " + balance + ", Created on: " + dateCreated;
+    }
 }
