@@ -1,165 +1,53 @@
+//Person.java
+
 import java.util.*;
 
-class Date{
-    private int day;
-    private String month;
-    private int year;
-    private Person objPerson;
+class Person{
+    public String name, surname;
+    private int age;
+    private Date bDate;
     
+    public Person(){}
     
-    public Date(){
-        this.day = 8;
-        this.month = "Aug";
-        this.year = 2025;
+    public Person(String name, String surname){
+        this.name = name;
+        this.surname = surname;
     }
     
-    public Date(int day, String month, int year){
-        this.day = day;
-        this.month = month;
-        this.year = year;
+    public String getName(){
+        return name;
     }
     
-    public void setDay(int day){
-        this.day = day;
+    public String getSurname(){
+        return surname;
     }
     
-    public void setMonth(String month){
-        this.month = month;
+    public Date getbDate(){
+        return bDate;
     }
     
-    public void setYear(int year){
-        this.year = year;
+    public void setName(String name){
+        this.name = name;
     }
     
-    public int getDay(){
-        return day;
+    public void setSurname(String surname){
+        this.surname = surname;
     }
     
-    public String getMonth(){
-        return month;
+    public void setName(String name, String surname){
+        this.name = name;
+        this.surname = surname;
     }
     
-    public int getYear(){
-         return year;
+    public void setbDate(Date bDate){
+        this.bDate = bDate;
     }
-    
-    public int getMonthNumber() {
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-        for(int i = 0; i< months.length;i++){
-            if(months[i].equalsIgnoreCase(month)){
-                return i+1;
-            }
-        }
-        return 1;
-    }
-    public int getMonthNumber(Date other) {
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-        for(int i = 0; i< months.length;i++){
-            if(months[i].equalsIgnoreCase(month)){
-                return i+1;
-            }
-        }
-        return 1;
-    }
-    
-    private int getDayInMonth(int month,int year){
-        int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
-        if(isLeapYear(year)){
-            days[1] = 29;
-        }
-        return days[month-1];
-    }
-    
-    private int getDayUsed(){
-        int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
-        int m = getMonthNumber()-1;
-        
-        //System.out.println("month index of days : " + m);
-        int total = 0;
-        for(int i = 0; i<m;i++){
-            total += days[i];
-            //System.out.println(days[i] + ",total = " + total);
-                
-        }
-        total += day;
-        //System.out.println("Total = " + total);
-        //System.out.println("---------------------");
-        return total;
-    }
-    
-    
-    private int getDayUsed(Date other){
-        int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
-        int m = getMonthNumber(other)-1;
-        
-        //System.out.println("month index of other : " + m);
-        int total = 0;
-        for(int i = 0; i<m;i++){
-            total += days[i];
-           // System.out.println(days[i] + ",total = " + total);
-                
-        }
-        total += other.day;
-        //System.out.println("Total = " + total);
-        //System.out.println("---------------------");
-        return total;
-    }
-    
-    private boolean isLeapYear(int year){
-        boolean p = false;
-        
-        if(year % 4 == 0){
-            p = true;
-            if(year % 100 == 0){
-                p = false;
-            }
-            if(year % 400 == 0){
-                p = true;
-            }
-        }
-       // System.out.println("Year : " + year + " is isLeapYear : " + p);
-        return p;
-    }
-    
-    public int diffDays(Date other){
-        int diff_y = Math.abs(this.year - other.year);
-        int Total_days = 0;
-
-        int y_start;
-        if(this.year > other.year){y_start = other.year;}
-        else{y_start = this.year;}
-        
-        for(int i = 0; i<diff_y;i++){
-            if(isLeapYear(y_start + i)){
-                Total_days += 366;
-            }
-            else{
-                Total_days += 365;
-            }
-            
-        }
-       /* System.out.println("diff y : " + diff_y);
-        System.out.println("Total_days : " + Total_days);
-        
-        System.out.println("Day used in obj : " + getDayUsed());
-        System.out.println("Day used in other : " + getDayUsed(other));*/
-        
-        int diff_total = Total_days - getDayUsed() + getDayUsed(other);
-        //System.out.println(diff_total);
-        return diff_total;
-    }
-    
-    public double getTotalMonth(Date other){
-        return (diffDays(other) / 30.0);
-        
-    }
-    
-    
     @Override
     public String toString(){
-        return "Day : " + day + ", Month :" + month + ", year :" + year;
+        return name + " " + surname ;
     }
     
+    
 }
+    
+    
