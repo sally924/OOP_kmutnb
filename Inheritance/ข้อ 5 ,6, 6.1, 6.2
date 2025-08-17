@@ -1,0 +1,73 @@
+// Main class
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	    //6.1
+		Account client1 = new Account(1123,20000,3.75);
+		Scanner kb = new Scanner(System.in);
+		
+	    String name = kb.nextLine();
+		String surname = kb.nextLine();
+		client1.setName(name,surname);
+		
+		
+		int d = kb.nextInt();
+		kb.nextLine();
+		String m = kb.nextLine();
+		int y = kb.nextInt();
+		client1.setDate(new Date(d,m,y));
+		
+		Date now = new Date(7,"Aug",2025);
+		
+	
+	    client1.withdraw(2500);
+	    client1.deposit(3000);
+	    
+	    Account client2 = new Account(1100,0,3);
+	    
+	    client1.transferMoney(client2,5000);
+	   
+	    System.out.println(client1.getBalance());
+	    System.out.println(client1.getMonthlyInterest(now));
+
+	    System.out.println("-------------------");
+	    
+	    
+	    //6.2
+	    
+	    FixAccount client3 = new FixAccount(1124,20000,7);
+	    Account client2 = new Account(1100,0,3);
+	    
+	    Scanner kb = new Scanner(System.in);
+	    
+        String name = kb.nextLine();
+		String surname = kb.nextLine();
+		client3.setName(name,surname);
+		
+		
+		int d2 = kb.nextInt();
+		kb.nextLine();
+		
+		String m2 = kb.nextLine();
+		int y2 = kb.nextInt();
+		
+		client3.setDate(new Date(d2,m2,y2));
+		Date now2 = new Date(17,"Aug",2025);
+		
+		client3.withdraw(now2,2500); 
+	    client3.deposit(3000);
+	    
+	    client3.transferMoney(client2,8000);
+	    System.out.println(client3.getBalance());
+	    System.out.println(client3.getMonthlyInterest(now2));
+		
+	    
+
+		
+		
+		
+	}
+}
