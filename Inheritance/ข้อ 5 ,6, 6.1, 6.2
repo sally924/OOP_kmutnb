@@ -1,149 +1,165 @@
-//Acount.java
-
 import java.util.*;
 
-class Account{
-    private int id,day,month,year;
-    private double balance;
-    private double annualInterestRate;
-    private Date dateCreated;
+class Date{
+    private int day;
+    private String month;
+    private int year;
     private Person objPerson;
-
-    public Account() {
-      
-    }
-
-    public Account(int id, double startBalance) {
-        this.id = id;
-        this.balance = startBalance;
-     
-    }
-
-    public Account(int id, double startBalance, double rate) {
-        this.id = id;
-        this.balance = startBalance;
-        this.annualInterestRate = rate / 100.0;
+    
+    
+    public Date(){
+        this.day = 8;
+        this.month = "Aug";
+        this.year = 2025;
     }
     
-    public void setName(String name, String surname){
-        objPerson = new Person();
-        objPerson.name = name;
-        objPerson.surname = surname;
-        
+    public Date(int day, String month, int year){
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
     
-
-    public int getID() {
-        return id;
+    public void setDay(int day){
+        this.day = day;
     }
-
-    public double getBalance() {
-        return balance;
+    
+    public void setMonth(String month){
+        this.month = month;
     }
-
-    public double getAnnualInterestRate() {
-        return annualInterestRate;
+    
+    public void setYear(int year){
+        this.year = year;
     }
-    public Date getDate() {
-        return dateCreated;
+    
+    public int getDay(){
+        return day;
     }
-
-    public void setID(int id) {
-        this.id = id;
+    
+    public String getMonth(){
+        return month;
     }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
+    
+    public int getYear(){
+         return year;
     }
-
-    public void setAnnualInterestRate(double rate) {
-        this.annualInterestRate = rate / 100.0;
-    }
-
-    public void setDate(Date date) {
-        this.dateCreated = date;
-    }
-
-    public double getMonthlyInterestRate() {
-        return annualInterestRate / 12.0;
-    }
-
-    public double getMonthlyInterest(Date other) {
-        double ratePerMonth = getMonthlyInterestRate();  
-        int n = (int) dateCreated.getTotalMonth(other);
-
-        double currentBalance = balance * Math.pow(1 + ratePerMonth, n);
-        double previousBalance = balance * Math.pow(1 + ratePerMonth, n - 1);
-
-    return currentBalance - previousBalance;
-    }
-
-    public void withdraw(double amount) {
-        if(amount > 0){
-            if (balance < amount) {
-               System.out.println("Insufficient balance");
-            } else {
-               balance -= amount;
+    
+    public int getMonthNumber() {
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        for(int i = 0; i< months.length;i++){
+            if(months[i].equalsIgnoreCase(month)){
+                return i+1;
             }
         }
-        else{
-            System.out.println("withdraw must be more than 0 bath");
+        return 1;
+    }
+    public int getMonthNumber(Date other) {
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        for(int i = 0; i< months.length;i++){
+            if(months[i].equalsIgnoreCase(month)){
+                return i+1;
+            }
         }
-        
+        return 1;
     }
     
-    public void withdraw(Date now, double amount) {
-        System.out.println("now  = " + now.getYear());
-        System.out.println("dc  = " + dateCreated.getYear());
-        if(now.getYear() > dateCreated.getYear()){
+    private int getDayInMonth(int month,int year){
+        int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
+        if(isLeapYear(year)){
+            days[1] = 29;
+        }
+        return days[month-1];
+    }
+    
+    private int getDayUsed(){
+        int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
+        int m = getMonthNumber()-1;
+        
+        //System.out.println("month index of days : " + m);
+        int total = 0;
+        for(int i = 0; i<m;i++){
+            total += days[i];
+            //System.out.println(days[i] + ",total = " + total);
+                
+        }
+        total += day;
+        //System.out.println("Total = " + total);
+        //System.out.println("---------------------");
+        return total;
+    }
+    
+    
+    private int getDayUsed(Date other){
+        int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
+        int m = getMonthNumber(other)-1;
+        
+        //System.out.println("month index of other : " + m);
+        int total = 0;
+        for(int i = 0; i<m;i++){
+            total += days[i];
+           // System.out.println(days[i] + ",total = " + total);
+                
+        }
+        total += other.day;
+        //System.out.println("Total = " + total);
+        //System.out.println("---------------------");
+        return total;
+    }
+    
+    private boolean isLeapYear(int year){
+        boolean p = false;
+        
+        if(year % 4 == 0){
+            p = true;
+            if(year % 100 == 0){
+                p = false;
+            }
+            if(year % 400 == 0){
+                p = true;
+            }
+        }
+       // System.out.println("Year : " + year + " is isLeapYear : " + p);
+        return p;
+    }
+    
+    public int diffDays(Date other){
+        int diff_y = Math.abs(this.year - other.year);
+        int Total_days = 0;
+
+        int y_start;
+        if(this.year > other.year){y_start = other.year;}
+        else{y_start = this.year;}
+        
+        for(int i = 0; i<diff_y;i++){
+            if(isLeapYear(y_start + i)){
+                Total_days += 366;
+            }
+            else{
+                Total_days += 365;
+            }
             
-            
-          if(amount > 0){
-             if (balance < amount) {
-               System.out.println("Insufficient balance");
-             } else {
-               balance -= amount;
-             }
-          }
-         else{
-            System.out.println("withdraw must be more than 0 bath");
-          }
-
         }
-        else{
-             System.out.println("Account must be more 1 year");
-        }
+       /* System.out.println("diff y : " + diff_y);
+        System.out.println("Total_days : " + Total_days);
         
+        System.out.println("Day used in obj : " + getDayUsed());
+        System.out.println("Day used in other : " + getDayUsed(other));*/
         
+        int diff_total = Total_days - getDayUsed() + getDayUsed(other);
+        //System.out.println(diff_total);
+        return diff_total;
+    }
+    
+    public double getTotalMonth(Date other){
+        return (diffDays(other) / 30.0);
         
     }
     
     
-
-    public void deposit(double amount) {
-        if(amount > 0){
-           balance += amount; 
-        }
-        else{
-            System.out.println("deposit must be more than 0 bath");
-        }
-       
-    }
-
-    public void transferMoney(Account acc1, double amount) {
-      if (amount <= getBalance() && amount >= 0) {
-           setBalance(getBalance() - (amount)); 
-           acc1.setBalance(acc1.getBalance() + amount);
-           /*acc1.balance += amount;
-           this.balance -= amount;*/
-      } 
-      else {
-        System.out.println("Insufficient balance with fee");
-      } 
-    }
-
     @Override
-    public String toString() {
-        return "ID: " + id + ", Balance: " + balance + ", Created on: " + dateCreated;
+    public String toString(){
+        return "Day : " + day + ", Month :" + month + ", year :" + year;
     }
+    
 }
