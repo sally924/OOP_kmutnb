@@ -1,53 +1,27 @@
-//Person.java
+//Saving.java
 
 import java.util.*;
 
-class Person{
-    public String name, surname;
-    private int age;
-    private Date bDate;
+class Saving extends Account {
     
-    public Person(){}
-    
-    public Person(String name, String surname){
-        this.name = name;
-        this.surname = surname;
+    public Saving(){
+        super();
     }
     
-    public String getName(){
-        return name;
+    public Saving(int id, double amt){
+        super(id,amt);
     }
     
-    public String getSurname(){
-        return surname;
-    }
-    
-    public Date getbDate(){
-        return bDate;
-    }
-    
-    public void setName(String name){
-        this.name = name;
-    }
-    
-    public void setSurname(String surname){
-        this.surname = surname;
-    }
-    
-    public void setName(String name, String surname){
-        this.name = name;
-        this.surname = surname;
-    }
-    
-    public void setbDate(Date bDate){
-        this.bDate = bDate;
-    }
     @Override
-    public String toString(){
-        return name + " " + surname ;
+    public void transferMoney(Account acc1, double amount) {
+      if (amount + 20 <= getBalance() && amount >= 0) {
+           setBalance(getBalance() - (amount + 20));
+           acc1.setBalance(acc1.getBalance() + amount);
+      } 
+      else {
+        System.out.println("Insufficient balance with fee");
+      } 
     }
-    
-    
 }
     
     
