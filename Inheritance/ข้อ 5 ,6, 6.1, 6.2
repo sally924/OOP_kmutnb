@@ -1,27 +1,19 @@
-//Saving.java
+//FixAccount.java
 
 import java.util.*;
 
-class Saving extends Account {
+class FixAccount extends Account{
     
-    public Saving(){
+    public FixAccount(){
         super();
     }
-    
-    public Saving(int id, double amt){
-        super(id,amt);
+    public FixAccount(int id, double startBalance, double rate){
+        super(id,startBalance,rate);
     }
     
     @Override
     public void transferMoney(Account acc1, double amount) {
-      if (amount + 20 <= getBalance() && amount >= 0) {
-           setBalance(getBalance() - (amount + 20));
-           acc1.setBalance(acc1.getBalance() + amount);
-      } 
-      else {
-        System.out.println("Insufficient balance with fee");
-      } 
+        System.out.println("Can not transferMoney !");
     }
+    
 }
-    
-    
