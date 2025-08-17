@@ -1,0 +1,177 @@
+import java.util.*;
+
+class Rectangle{
+    public double width, height;
+    public double x,y;
+    
+    Rectangle(){
+        
+    }
+    
+    Rectangle(double w, double h, double x, double y){
+        width  =  w;
+        height = h;
+        this.x = x;
+        this.y = y;
+    }
+    
+    double getArea(){
+        return width * height;
+    }
+    
+    
+
+}
+
+class Line{
+    public double x1,y1;
+    public double x2,y2;
+    
+    Line(){
+        
+    }
+    
+    Line(double x1, double y1, double x2, double y2){
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+    }
+    
+    double getLong(){
+        double a = Math.pow((y1-y2),2);
+        double b = Math.pow((x1-x2),2);
+        double distance = Math.sqrt(a+b);
+        return distance;
+    }
+}
+
+
+class MyRectangle2D extends Rectangle{
+    
+    MyRectangle2D(){
+        x = 0;
+        y = 0;
+        width = 1;
+        height = 1;
+    }
+    
+    MyRectangle2D(double x, double y, double width, double height){
+        super(width,height,x,y);
+    }
+    
+    double getPerimeter(){
+        return 2 * (width + height);
+    }
+    
+    boolean contains(double x, double y){
+        double center_x = this.x;
+        double center_y = this.y;
+        
+        double point_x = x;
+        double point_y = y;
+        
+        double hw = width/2.0;
+        double hh = height/2.0;
+        
+        boolean inside = false;
+        
+        if(center_x - hw <= point_x && point_x <= center_x + hw){
+            if(center_y - hh <= point_y && point_y <= center_y + hh){
+                inside = true;
+            }
+        }
+        return inside;
+        
+    }
+    boolean contains(MyRectangle2D r){
+         boolean inside_horizon = false;
+         boolean inside_vecti = false;
+         
+         double ax_left   = this.x - this.width/2.0;
+         double ax_right  = this.x + this.width/2.0;
+         double ay_top    = this.y + this.height/2.0;
+         double ay_bottom = this.y - this.height/2.0;;
+         
+          
+         double bx_left   = r.x - r.width/2.0;
+         double bx_right  = r.x + r.width/2.0;
+         double by_top    = r.y + r.height/2.0;
+         double by_bottom = r.y - r.height/2.0;;
+         
+         
+         //System.out.println(ax_left + ", " + bx_left);
+         //System.out.println(ax_right + ", " + bx_right);
+         
+        if(ax_left < bx_left && ax_right > bx_right){
+              inside_horizon = true;
+            if(ay_top > by_top && ay_bottom < by_bottom){
+               inside_vecti = true;
+            }
+        }
+       // System.out.println(inside_horizon);
+        //System.out.println(inside_vecti);
+       
+         return (inside_horizon && inside_vecti);
+    }
+    
+    boolean overlaps(MyRectangle2D r){
+         
+         double ax_left   = this.x - this.width/2.0;
+         double ax_right  = this.x + this.width/2.0;
+         double ay_top    = this.y + this.height/2.0;
+         double ay_bottom = this.y - this.height/2.0;;
+         
+          
+         double bx_left   = r.x - r.width/2.0;
+         double bx_right  = r.x + r.width/2.0;
+         double by_top    = r.y + r.height/2.0;
+         double by_bottom = r.y - r.height/2.0;;
+        
+        if(ax_right < bx_left || bx_right < ax_left ||
+          ay_bottom > by_top || by_bottom > ay_top){
+            return false;
+        }
+        return true;
+        
+    }
+    
+    double getArea(){
+        return super.getArea();
+    }
+    
+    
+}
+
+public class Main{
+    public static void main(String[] args){
+        
+        MyRectangle2D r1 = new MyRectangle2D(0,0,4,2);
+        
+        System.out.println("area : " + r1.getArea());
+        System.out.println("perimeter : " + r1.getPerimeter());
+        
+        System.out.println("----------");
+         
+        System.out.println("Is point (1,0) inside r1 ? : " + r1.contains(1,0));
+        System.out.println("Is point (3,0) inside r1 ? : " + r1.contains(3,0));
+        System.out.println("Is point (0,2) inside r1 ? : " + r1.contains(0,2));
+        
+        System.out.println("----------");
+        
+        MyRectangle2D r2 = new MyRectangle2D(0,0,2,1);
+        System.out.println("Is r2 inside r1 ? : " + r1.contains(r2));
+        
+        MyRectangle2D r3 = new MyRectangle2D(2,0,2,2);
+        System.out.println("Is r3 inside r1 ? : " + r1.contains(r3));
+        
+        System.out.println("----------");
+        MyRectangle2D r4 = new MyRectangle2D(2,0,2,2);
+        System.out.println("Is r4 overlaps r1 ? : " + r1.overlaps(r4));
+        
+        MyRectangle2D r5 = new MyRectangle2D(10,10,2,2);
+        System.out.println("Is r5 overlaps r1 ? : " + r1.overlaps(r5));
+        
+        
+    }
+}
