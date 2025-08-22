@@ -1,0 +1,213 @@
+import java.util.*;
+
+class Rectangle{
+    public double width, height;
+    public double x,y;
+    
+    Rectangle(){
+        this.width = 0;
+        this.height = 0;
+        this.x = 0;
+        this.y = 0;
+    }
+    
+    Rectangle(double w, double h, double x, double y){
+        width  =  w;
+        height = h;
+        this.x = x;
+        this.y = y;
+    }
+    
+    double getArea(){
+        return width * height;
+    }
+    
+    int contains(Line a, Rectangle b){
+        if(a.getLong() > width){
+            return 0;
+        }
+        
+        if(a.x1 > b.x && a.y1 < b.y &&
+           a.x2 < b.x + width && a.y2 < b.y){
+            return 1;   
+        }
+        return 0;
+    }
+    
+    boolean cross(Line a, Line b){
+        if(a.x2 < b.x1 || b.x2 < a.x1 ||
+           a.y1 > b.y2 || b.y1 > a.y2){
+               return false;
+        }
+        return true;
+    }
+    
+    
+    
+    double distance(Line a, Rectangle b){
+       
+        double x1 = (a.x1 + a.x2) /2.0 ;
+        double y1 = (a.y1 + a.y2) /2.0 ;
+        
+        double A = Math.pow((y1-b.y),2);
+        double B = Math.pow((x1-b.x),2);
+        double distance = Math.sqrt(A+B);
+        return distance;
+        
+        
+    }
+    
+
+    int overlaps(Rectangle a, Rectangle b){
+       if(a.x + width < b.x)   return  0;
+       if(a.x > b.x + width)   return  0;
+       if(a.y < b.y - height)  return  0;
+       if(a.y - height > b.y ) return  0;
+       
+       return 1;
+    }
+    
+    @Override
+    public String toString(){
+        return "Rectangle width = " + width + 
+                ", height = " + height + ", point x_ulc = " + x +
+                ", point y_ulc = " + y;
+    }
+    
+    
+
+}
+
+class Line{
+    public double x1,y1;
+    public double x2,y2;
+    public double m,c;
+    
+    Line(){
+      x1 = 0;
+      x2 = 0;
+      y1 = 0;
+      y2 = 0;
+        
+    }
+    
+    
+    
+    Line(double x1, double y1, double x2, double y2){
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        this.m = slope(x1,y1,x2,y2);
+        c =  this.y1 - this.m * this.x1;
+    }
+    
+
+    
+    double getLong(){
+        double a = Math.pow((y1-y2),2);
+        double b = Math.pow((x1-x2),2);
+        double distance = Math.sqrt(a+b);
+        return distance;
+    }
+    
+    double getLong(double x1, double y1, double x2, double y2){
+        double a = Math.pow((y1-y2),2);
+        double b = Math.pow((x1-x2),2);
+        double distance = Math.sqrt(a+b);
+        return distance;
+    }
+    
+    double slope(Line a){
+        return (a.y2-a.y1)/(a.x2-a.x1);
+    }
+    
+     
+    double slope(double x1, double y1, double x2, double y2){
+        return (y2-y1)/(x2-x1);
+    }
+
+    double getY(double x){
+        return m*x + c;
+    }
+    
+    double intersec_px(Line a, Line b){
+        
+        if(a.m == b.m){
+            System.out.println("Line are pararell");
+            return 0;
+        }
+        double px = (b.c - a.c) / (a.m - b.m);
+        return px;
+    
+    }
+    
+    double intersec_py(Line a, Line b){
+       return getY(intersec_px(a,b));
+    
+    }
+    
+    boolean isPararell(Line a, Line b){
+        
+        if(a.m == b.m){
+            return true;
+        }
+        return false;
+    
+    }
+    
+    boolean pointOnline(Line a,double x, double y){
+        double distance_p = getLong(a.x1,a.y1,x,y);
+
+        if(a.getLong() < distance_p){
+               return false;
+        }
+        return true;
+        
+    }
+    
+    public int cross(Line a, Line b){
+        
+        double x_intersec = a.intersec_px(a,b);
+        double y_intersec = a.intersec_py(a,b);
+        
+        if(!a.isPararell(a,b)){
+            
+            if(a.pointOnline(a,x_intersec,y_intersec)&&
+               b.pointOnline(b,x_intersec,y_intersec)){
+                return 1;
+           }
+        }
+        return 0;
+    }
+    
+    public void printEquation(){
+        System.out.println("y = " + m + "x + " + c);
+    }
+    
+    
+}
+
+public class Main{
+    public static void main(String[] args){
+        
+        Line l1 = new Line(5,1,7,3);
+        System.out.println("l1 long : " + l1.getLong());
+        
+        Rectangle r1 =  new Rectangle(4,4,0,0);
+        System.out.println(r1.toString());
+        
+        System.out.println("is Line (l1) inside Rectangle (r1) ? Yes(1) No(0) : " + r1.contains(l1,r1));
+        
+        Rectangle r2 = new Rectangle(2,2,10,10);
+        System.out.println("is Line (l1) overlaps Rectangle (r1) ? Yes(1) No(0) : " + r1.overlaps(r1,r2));
+        
+        Line l2 = new Line(0,0,4,4);
+        Line l3 = new Line(4,4,6,0);
+        
+    
+        System.out.println(l2.cross(l2,l3));
+        
+        
+    }
+}
