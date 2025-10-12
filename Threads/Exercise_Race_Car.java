@@ -41,9 +41,13 @@ public class Exercise extends JFrame {
 
 
 //Race Car
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
 public class RaceCar extends JPanel {
     private ArrayList<Car> cars = new ArrayList<>();
-    private Timer timer;
+    private Thread thread;
 
     public RaceCar() {
         // Create 4 cars with different lanes and colors
@@ -51,8 +55,8 @@ public class RaceCar extends JPanel {
         cars.add(new Car(0, 110, 7, Color.GREEN));
         cars.add(new Car(0, 160, 3, Color.GREEN));
         cars.add(new Car(0, 210, 6, Color.GREEN));
-
-         animationThread = new Thread(() -> {
+        // Thread for animation
+        thread = new Thread(() -> {
             while (true) {
                 for (Car c : cars)
                     c.move(getWidth());
@@ -60,11 +64,11 @@ public class RaceCar extends JPanel {
                 try {
                     Thread.sleep(30);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    break;
                 }
             }
         });
-        animationThread.start();
+        thread.start();
     }
 
     public void setCarSpeed(int carIndex, int speed) {
@@ -88,6 +92,7 @@ public class RaceCar extends JPanel {
             c.draw(g);
     }
 }
+
 
 
 
@@ -131,4 +136,5 @@ public class Car {
     public int getSpeed() { return speed; }
 
 }
+
 
