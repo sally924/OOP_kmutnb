@@ -1,0 +1,99 @@
+import javax.swing.*;
+import javax.swing.border.Border;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class Lab9_5 extends JFrame implements ActionListener{
+    private JTextField display;
+    private String operator = "";
+    private double num1 = 0, num2 = 0;
+
+    public Lab9_5(){
+        setTitle("Simple Calculator");
+        setSize(300,300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+      
+        display = new JTextField("0");
+        display.setPreferredSize(new Dimension(20,50));
+        display.setEditable(false);
+        display.setHorizontalAlignment(JTextField.RIGHT);
+        add(display, BorderLayout.NORTH);
+
+        JPanel panel = new JPanel(new GridLayout(5,4,1,1));
+
+        String[] buttons = {
+            "sqrt","square","+/-","C",
+            "7","8","9","+",
+            "6","5","4","-",
+            "1","2","3","*",
+            "0",".","=","/"
+        };
+        for(String text : buttons){
+            JButton btn = new JButton(text);
+            btn.addActionListener(this);
+            panel.add(btn);
+        }
+        add(panel,BorderLayout.CENTER);
+
+
+
+        setVisible(true);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e){
+        String cmd = e.getActionCommand();
+
+        if(cmd.matches("[0-9]") || cmd.equals(".")){
+
+            if(display.getText().equals("0")){
+                display.setText(cmd);
+            }
+            else{
+                display.setText(display.getText() + cmd);
+            }
+        }
+        else if(cmd.equals("C")){
+            display.setText("0");
+            num1 = num2 = 0;
+            operator = "";
+        }
+        else if(cmd.equals("sqrt")){
+            double val = Double.parseDouble(display.getText());
+            display.setText(String.valueOf(Math.sqrt(val)));
+        }
+        else if(cmd.equals("square")){
+            double val = Double.parseDouble(display.getText());
+            display.setText(String.valueOf(val * val));
+        }
+        else if(cmd.equals("+/-")){
+            double  val = Double.parseDouble(display.getText());
+            display.setText(String.valueOf(-val));
+        }
+        else if("+-*/".contains(cmd)){
+            num1 = Double.parseDouble(display.getText());
+            operator = cmd;
+            display.setText("0");
+        }
+        else if(cmd.equals(("="))){
+            num2 = Double.parseDouble(display.getText());
+            String result = "";
+            switch (operator){
+                case "+" : result = String.valueOf(num1 + num2); break;
+                case "-" : result = String.valueOf(num1 - num2); break;
+                case "*" : result = String.valueOf(num1 * num2); break;
+                case "/" : result = num2 != 0 ? String.valueOf(num1/num2) : "Error"; break;
+            }
+            display.setText(String.valueOf(result));
+            operator = "";
+        }
+        
+    }
+
+
+    public static void main(String args[]){
+        new Lab9_5();
+    }
+    
+}
