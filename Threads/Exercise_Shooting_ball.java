@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+//ข้อ 7
 public class Exercise extends JFrame{
     JTextField scoreField;
     public Exercise(){
