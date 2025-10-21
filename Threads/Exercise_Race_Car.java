@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+//ข้อ 6
 public class Exercise extends JFrame {
     public Exercise() {
         setTitle("Race Car Control");
