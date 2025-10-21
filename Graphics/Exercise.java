@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+//ข้อ 4
 public class Exercise extends JFrame {
     public Exercise() {
         setTitle("Race Car Control");
