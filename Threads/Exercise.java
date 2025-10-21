@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+//ข้อ 5
 public class Exercise extends JFrame {
     public Exercise() {
         add(new RaceCar());
