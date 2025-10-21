@@ -3,6 +3,7 @@ import java.awt.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+//ข้อ 4
 public class ClockAnimation extends JFrame {
     private StillClock clock = new StillClock();
 
